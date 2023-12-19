@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/5N8YvsIa)
 Bir önceki hafta sanal evcil hayvan bakımı API'si projesine ekleyeceğiniz ek endpointler 
 
@@ -75,3 +76,5 @@ Veritabanında en az beş tablo bulunacak:
    - `GET /besinler`: Tüm besinleri listeler.
    - `POST /besinler/{evcilHayvanId}`: Evcil hayvana besin verir.
 >>>>>>> 6e95647 (Initial commit)
+=======
+>>>>>>> 1179c0c (C1 - Domain layer created.)
