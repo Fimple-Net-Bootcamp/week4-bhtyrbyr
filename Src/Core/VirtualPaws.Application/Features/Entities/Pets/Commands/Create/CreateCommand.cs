@@ -37,8 +37,13 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
                 var activityList = _activityRepo.GetAll().Where(activity =>
                     request.dtoModel.Activities.Contains(activity.Name)
                 ).ToList();
+<<<<<<< HEAD
                 //newEntity.Activities = activityList;
                 if (_petRepo.GetAll().Any(user => user.Name == newEntity.Name))
+=======
+                newEntity.Activities = activityList;
+                if (_petRepo.GetAll().Any(ent => ent.Name == newEntity.Name))
+>>>>>>> parent of 5a987da (C20 - An in-house controller for pet food has been created.)
                     throw new AlreadyExistException();
                 _petRepo.Create(newEntity);
                 request.newId = newEntity.Id;

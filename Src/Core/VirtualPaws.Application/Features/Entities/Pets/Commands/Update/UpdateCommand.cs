@@ -26,26 +26,30 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Update
         public class UpdatePutCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>
         {
             private readonly IPetEntityRepository _petRepo;
+            private readonly IUserEntityRepository _userRepo;
+            private readonly IMapper _mapper;
 
             public UpdatePutCommandHandler(IPetEntityRepository petRepo, IUserEntityRepository userRepo, IMapper mapper)
             {
                 _petRepo = petRepo;
+                _userRepo = userRepo;
+                _mapper = mapper;
             }
 
 
             public async Task<ServiceResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
             {
-                var entity = _petRepo.GetById(request.Id);
-                if (entity is null)
+                var petEntity = _petRepo.GetById(request.Id);
+                if (petEntity is null)
                     throw new NoRecordFoundException("PetRepository");
-                entity.Name = (request.dtoModel.NewName != "string" && request.dtoModel.NewName != null) ? request.dtoModel.NewName : entity.Name;
-                entity.Type = (request.dtoModel.NewType != "string" && request.dtoModel.NewType != null) ? request.dtoModel.NewType : entity.Type;
-                entity.Level = request.dtoModel.NewLevel != default ? request.dtoModel.NewLevel : entity.Level;
-                entity.XP = request.dtoModel.NewXP != default ? request.dtoModel.NewXP : entity.XP;
-                entity.HungerScore = request.dtoModel.NewHungerScore != default ? request.dtoModel.NewHungerScore : entity.HungerScore;
-                entity.UpdateDate = DateTime.Now;
-                _petRepo.Update(entity);
-                return new ServiceResponse("Pet Service", $"The record named {entity.Name} has been successfully updated.");
+                petEntity.Name = (request.dtoModel.NewName != "string" && request.dtoModel.NewName != null) ? request.dtoModel.NewName : petEntity.Name;
+                petEntity.Type = (request.dtoModel.NewType != "string" && request.dtoModel.NewType != null) ? request.dtoModel.NewType : petEntity.Type;
+                petEntity.Level = request.dtoModel.NewLevel != default ? request.dtoModel.NewLevel : petEntity.Level;
+                petEntity.XP = request.dtoModel.NewXP != default ? request.dtoModel.NewXP : petEntity.XP;
+                petEntity.HungerScore = request.dtoModel.NewHungerScore != default ? request.dtoModel.NewHungerScore : petEntity.HungerScore;
+                petEntity.UpdateDate = DateTime.Now;
+                _petRepo.Update(petEntity);
+                return new ServiceResponse("Pet Service", $"The record named {petEntity.Name} has been successfully updated.");
             }
         }
     }
