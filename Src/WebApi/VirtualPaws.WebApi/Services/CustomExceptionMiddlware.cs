@@ -21,22 +21,22 @@ namespace WebAPI.Middlewares
             var watch = Stopwatch.StartNew();
             try
             {
-                _loggerService.Write(ConsoleColor.Magenta, "[Request]", 
+                _loggerService.Write(ConsoleColor.DarkBlue, "[Request]", 
                                      ConsoleColor.DarkYellow, "  HTTP ", 
                                      ConsoleColor.Cyan, context.Request.Method, 
                                      ConsoleColor.White, " - ", 
-                                     ConsoleColor.Green, context.Request.Path);
+                                     ConsoleColor.Yellow, context.Request.Path);
                 await _next(context);
                 watch.Stop();
-                _loggerService.Write(ConsoleColor.Magenta, "[Response]", 
+                _loggerService.Write(ConsoleColor.DarkBlue, "[Response]", 
                                      ConsoleColor.DarkYellow, " HTTP ",
                                      ConsoleColor.Cyan, context.Request.Method,
                                      ConsoleColor.White, " - ",
-                                     ConsoleColor.Green, context.Request.Path,
+                                     ConsoleColor.Yellow, context.Request.Path,
                                      ConsoleColor.White, " responded ",
                                      (context.Response.StatusCode >= 200 && context.Response.StatusCode <=299) ? ConsoleColor.Green : ConsoleColor.Red, context.Response.StatusCode,
                                      ConsoleColor.White, " in ",
-                                     ConsoleColor.Blue, watch.Elapsed.Milliseconds, ConsoleColor.White, " ms ",
+                                     ConsoleColor.DarkCyan, watch.Elapsed.Milliseconds, ConsoleColor.White, " ms ",
                                      ConsoleColor.Yellow, context.Items.Count);
             }catch(System.Exception ex)
             {
@@ -54,15 +54,14 @@ namespace WebAPI.Middlewares
                     ConsoleColor.DarkYellow,"    HTTP ",
                     ConsoleColor.Cyan, context.Request.Method,
                     ConsoleColor.White, " - ",
-                    ConsoleColor.Green, context.Request.Path,
+                    ConsoleColor.Yellow, context.Request.Path,
                     ConsoleColor.White, " - ",
                     ConsoleColor.Red, context.Response.StatusCode,
                     ConsoleColor.White, " Error Message ",
                     ConsoleColor.Yellow, ex.Message,
                     ConsoleColor.White, " in ",
-                    ConsoleColor.Blue, watch.Elapsed.Milliseconds, ConsoleColor.White, " ms"
+                    ConsoleColor.DarkCyan, watch.Elapsed.Milliseconds, ConsoleColor.White, " ms"
                 );
-            //var result = JsonConvert.SerializeObject(new {error = ex.Message}, Formatting.None);
             var result = JsonSerializer.Serialize(new {error = ex.Message});
             return context.Response.WriteAsync(result);
         }
