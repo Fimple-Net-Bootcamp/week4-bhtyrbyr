@@ -80,3 +80,5 @@
 * PetUpdateDTO model yapýsý oluþturuldu.
 * Ýsim düzenlemeleri yapýldý ve bazý bug'lar çözümlendi.
 
+### C17 - GenericRepository düzenlendi.
+* GenericRepository içerisinde kullanýlmayan HasEntity fonksiyonu kaldýrýldý.

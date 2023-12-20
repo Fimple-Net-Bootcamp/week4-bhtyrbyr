@@ -14,11 +14,6 @@ namespace VirtualPaws.Persistence.Repositories.Entities
             _dbContext = dbContext;
         }
 
-        public bool HasEntity(T entity)
-        {
-            return _dbContext.Set<T>().Any(ent => ent == entity);
-        }
-
         public List<T> GetAll()
         {
             return _dbContext.Set<T>().OrderBy(pet => pet.Id).ToList();
