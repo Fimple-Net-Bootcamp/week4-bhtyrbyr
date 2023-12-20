@@ -37,7 +37,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
                 var activityList = _activityRepo.GetAll().Where(activity =>
                     request.dtoModel.Activities.Contains(activity.Name)
                 ).ToList();
-                newEntity.Activities = activityList;
+                //newEntity.Activities = activityList;
                 if (_petRepo.GetAll().Any(user => user.Name == newEntity.Name))
                     throw new AlreadyExistException();
                 _petRepo.Create(newEntity);

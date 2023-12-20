@@ -15,6 +15,7 @@ namespace VirtualPaws.Persistence.Context
         public DbSet<Activity> Activitys { get; set; }
         public DbSet<PetHealtStatus> PetHealtStatuses { get; set; }
         public DbSet<Training> Trainings { get; set; }
+        public DbSet<ActivityPermision> ActivityPermisions { get; set; }
         #endregion
         #region RecordEntityDbSet
         public DbSet<OwnershipRecord> OwnershipRecords { get; set; }

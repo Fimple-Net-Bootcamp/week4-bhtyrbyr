@@ -13,6 +13,7 @@ namespace VirtualPaws.Domain.Entities
         /// Indicates the which pet has a health record
         /// </summary>
         public UInt16 PetId { get; set; }
+
         /// <summary>
         /// Identifies which pet it is.
         /// </summary>

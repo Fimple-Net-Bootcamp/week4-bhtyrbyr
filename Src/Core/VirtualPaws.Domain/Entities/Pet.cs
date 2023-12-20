@@ -51,6 +51,11 @@ namespace VirtualPaws.Domain.Entities
         /// <summary>
         /// Identifies activities that the pet can do.
         /// </summary>
-        public List<Activity> Activities { get; set; } 
+        public List<ActivityPermision> ActivityPermisions { get; set; } 
+
+        public UInt16 HealtStatusId { get; set; }
+
+        [ForeignKey("HealtStatusId")]
+        public PetHealtStatus HealtStatus { get; set; }
     }
 }
