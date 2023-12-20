@@ -35,8 +35,8 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Queries
                     if (entity.OwnerId is not null)
                         entity.Owner = _userRepo.GetById((UInt16)entity.OwnerId);
                 });
-                var result = _mapper.Map<List<PetSimplifiedViewDTO>>(entities);
-                return new QueryResponse<List<PetSimplifiedViewDTO>>("Pet Service", "The records were successfully retrieved from the database.", result);
+                var results = _mapper.Map<List<PetSimplifiedViewDTO>>(entities);
+                return new QueryResponse<List<PetSimplifiedViewDTO>>("Pet Service", $"{results.Count} records were successfully received from database.", results);
             }
         }
     }

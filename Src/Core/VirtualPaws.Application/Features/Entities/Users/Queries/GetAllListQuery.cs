@@ -35,7 +35,7 @@ namespace VirtualPaws.Application.Features.Entities.Users.Queries
                     entity.Pets = _petRepo.GetAll().Where(pet => pet.OwnerId == entity.Id).ToList();
                 });
                 var results = _mapper.Map<List<UserSimplifiedViewDTO>>(entities);
-                return new QueryResponse<List<UserSimplifiedViewDTO>>("User Service", "The records were successfully retrieved from the database.", results);
+                return new QueryResponse<List<UserSimplifiedViewDTO>>("User Service", $"{results.Count} records were successfully received from database.", results);
             }
         }
     }
