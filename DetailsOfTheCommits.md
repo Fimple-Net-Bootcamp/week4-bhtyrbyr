@@ -91,3 +91,5 @@
 * Silme özelliklerinde tablolarýn birbirini etkilemesi durumunda özel "ViolatesForeignKeyException" sýnýfý oluþturuldu.
 * Kayýt ekleme özelliði oluþturuldu.
 * Güncelleme özellikleri eklendi.
+* Ýsim düzenlemeleri yapýldý. 
+* Dönüþ tipleri ve hata metinlerinde düzenleme yapýldý.
