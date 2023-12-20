@@ -1,0 +1,32 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using VirtualPaws.Application.Features.Entities.Users.Queries;
+
+namespace VirtualPaws.WebApi.Controllers
+{
+    [Route("api/v1/VirtualPaws/[controller]s")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+
+        public UserController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+        
+        [HttpGet("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var query = new GetAllListQuery();
+            return Ok(await _mediator.Send(query));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(UInt16 id)
+        {
+            var query = new GetByIdQuery(id);
+            return Ok(await _mediator.Send(query));
+        }
+    }
+}

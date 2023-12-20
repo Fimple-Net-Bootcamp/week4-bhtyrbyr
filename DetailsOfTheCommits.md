@@ -82,3 +82,8 @@
 
 ### C17 - GenericRepository düzenlendi.
 * GenericRepository içerisinde kullanýlmayan HasEntity fonksiyonu kaldýrýldý.
+
+### C18 - Kullanýcý kayýtlarý için sorgu özellikleri eklendi.
+* Kullanýcý sýnýfýnýn gösterilmesi için iki çeþit DTO oluþturuldu. (Detaylý ve Basitleþtirilmiþ)
+* Veri haritalama için Automapper kullanýldý.
+

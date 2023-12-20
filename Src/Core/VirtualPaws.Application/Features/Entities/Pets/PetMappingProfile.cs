@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MediatR;
 using VirtualPaws.Application.DTOs.PetDTOs;
 using VirtualPaws.Domain.Entities;
 
