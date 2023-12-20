@@ -87,5 +87,7 @@
 * Kullanýcý sýnýfýnýn gösterilmesi için iki çeþit DTO oluþturuldu. (Detaylý ve Basitleþtirilmiþ)
 * Veri haritalama için Automapper kullanýldý.
 
-### C19 - Kullanýcý kaydý oluþturma özelliði eklendi.
+### C19 - Kullanýcý kayýt ekleme/silme/güncelleme özellikleri eklendi.
+* Silme özelliklerinde tablolarýn birbirini etkilemesi durumunda özel "ViolatesForeignKeyException" sýnýfý oluþturuldu.
+* Kayýt ekleme özelliði oluþturuldu.
 

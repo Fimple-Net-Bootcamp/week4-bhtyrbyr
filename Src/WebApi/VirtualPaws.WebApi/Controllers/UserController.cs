@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VirtualPaws.Application.DTOs.UserDTOs;
 using VirtualPaws.Application.Features.Entities.Users.Commands.Create;
+using VirtualPaws.Application.Features.Entities.Users.Commands.Delete;
 using VirtualPaws.Application.Features.Entities.Users.Queries;
 
 namespace VirtualPaws.WebApi.Controllers
@@ -37,6 +38,13 @@ namespace VirtualPaws.WebApi.Controllers
             var command = new CreateCommand(model);
             var result = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id = command.newId }, result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(UInt16 id)
+        {
+            var command = new DeleteCommand(id);
+            return Ok(await _mediator.Send(command));
         }
     }
 }
