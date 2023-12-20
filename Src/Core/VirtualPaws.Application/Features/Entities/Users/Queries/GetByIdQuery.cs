@@ -42,7 +42,7 @@ namespace VirtualPaws.Application.Features.Entities.Users.Queries
                     return new QueryResponse<UserDetailedViewDTO>("User Service", "The records were successfully retrieved from the database.", result);
 
                 }
-                throw new NoRecordFoundException();
+                throw new NoRecordFoundException("UserRepository");
             }
         }
     }

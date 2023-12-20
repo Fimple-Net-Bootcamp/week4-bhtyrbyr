@@ -90,4 +90,4 @@
 ### C19 - Kullanýcý kayýt ekleme/silme/güncelleme özellikleri eklendi.
 * Silme özelliklerinde tablolarýn birbirini etkilemesi durumunda özel "ViolatesForeignKeyException" sýnýfý oluþturuldu.
 * Kayýt ekleme özelliði oluþturuldu.
-
+* Güncelleme özellikleri eklendi.

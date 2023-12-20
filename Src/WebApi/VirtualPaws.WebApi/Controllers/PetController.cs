@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using VirtualPaws.Application.DTOs.PetDTOs;
@@ -24,47 +23,88 @@ namespace VirtualPaws.WebApi.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-            var query = new GetAllListQuery();
-            return Ok(await _mediator.Send(query));
+            try
+            {
+                var query = new GetAllListQuery();
+                var result = await _mediator.Send(query);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(UInt16 id)
         {
-            var query = new GetByIdQuery(id);
-            return Ok(await _mediator.Send(query));
+            try
+            {
+                var query = new GetByIdQuery(id);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] PetCreateDTO model)
         {
-            var command = new CreateCommand(model);
-            var result = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id = command.newId }, result);
+            try
+            {
+                var command = new CreateCommand(model);
+                var result = await _mediator.Send(command);
+                return CreatedAtAction(nameof(GetById), new { id = command.newId }, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(UInt16 id)
         {
-            var command = new DeleteCommand(id);
-            return Ok(await _mediator.Send(command));
+            try
+            {
+                var command = new DeleteCommand(id);
+                return Ok(await _mediator.Send(command));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePut(UInt16 id, [FromBody] PetUpdateDTO model)
         {
-            var command = new UpdatePutCommand(id, model);
-            return Ok(await _mediator.Send(command));
+            try
+            {
+                var command = new UpdateCommand(id, model);
+                return Ok(await _mediator.Send(command));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdatePatch(UInt16 id, [FromBody] JsonPatchDocument<PetUpdateDTO> model)
         {
-            var updateDTOModel = new PetUpdateDTO();
-            model.ApplyTo(updateDTOModel);
-            var command = new UpdatePutCommand(id, updateDTOModel);
-            return Ok(await _mediator.Send(command));
-
+            try
+            {
+                var updateDTOModel = new PetUpdateDTO();
+                model.ApplyTo(updateDTOModel);
+                var command = new UpdateCommand(id, updateDTOModel);
+                return Ok(await _mediator.Send(command));
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

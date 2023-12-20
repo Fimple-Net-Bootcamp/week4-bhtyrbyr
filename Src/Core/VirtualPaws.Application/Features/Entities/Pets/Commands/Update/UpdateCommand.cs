@@ -13,17 +13,17 @@ using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Update
 {
-    public class UpdatePutCommand : IRequest<ServiceResponse>
+    public class UpdateCommand : IRequest<ServiceResponse>
     {
         public PetUpdateDTO dtoModel { get; set; }
         public UInt16 Id { get; set; }
 
-        public UpdatePutCommand(UInt16 Id, PetUpdateDTO dtoModel)
+        public UpdateCommand(UInt16 Id, PetUpdateDTO dtoModel)
         {
             this.Id = Id;
             this.dtoModel = dtoModel;
         }
-        public class UpdatePutCommandHandler : IRequestHandler<UpdatePutCommand, ServiceResponse>
+        public class UpdatePutCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>
         {
             private readonly IPetEntityRepository _petRepo;
             private readonly IUserEntityRepository _userRepo;
@@ -37,7 +37,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Update
             }
 
 
-            public async Task<ServiceResponse> Handle(UpdatePutCommand request, CancellationToken cancellationToken)
+            public async Task<ServiceResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
             {
                 var petEntity = _petRepo.GetById(request.Id);
                 if (petEntity is null)
