@@ -87,3 +87,5 @@
 * Kullanýcý sýnýfýnýn gösterilmesi için iki çeþit DTO oluþturuldu. (Detaylý ve Basitleþtirilmiþ)
 * Veri haritalama için Automapper kullanýldý.
 
+### C19 - Kullanýcý kaydý oluþturma özelliði eklendi.
+

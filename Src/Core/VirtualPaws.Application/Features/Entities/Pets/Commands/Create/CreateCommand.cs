@@ -42,7 +42,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
                     throw new AlreadyExistException();
                 _petRepo.Create(newEntity);
                 request.newId = newEntity.Id;
-                return new ServiceResponse("Pet Service", "The pet was successfully registered.");
+                return new ServiceResponse("Pet Service", $"The {newEntity.Name} was successfully registered.");
             }
         }
     }

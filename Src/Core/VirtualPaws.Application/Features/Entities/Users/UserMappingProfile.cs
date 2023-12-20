@@ -18,6 +18,19 @@ namespace VirtualPaws.Application.Features.Entities.Users
                     opt.MapFrom(src => 
                     !src.Pets.Any() ? null : src.Pets.Select(pet => pet.Name).ToList())
                 );
+            CreateMap<UserCreateDTO, User>()
+                .ForMember(
+                    dest => dest.Pets, opt => opt.Ignore()
+                )
+                .ForMember(
+                    dest => dest.IsActive, opt => opt.MapFrom(src => true)
+                )
+                .ForMember(
+                    dest => dest.CreateDate, opt => opt.MapFrom(src => DateTime.Now)
+                )
+                .ForMember(
+                    dest => dest.UpdateDate, opt => opt.MapFrom(src => DateTime.Now)
+                );
         }
     }
 }
