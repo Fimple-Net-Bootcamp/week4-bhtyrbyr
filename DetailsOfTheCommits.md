@@ -115,3 +115,9 @@
 * Evcil hayvan ile aktivite yapma özelliði eklendi.
 * Evcil hayvan besleme özelliði eklendi.
 * Evcil hayvan eðitme özelliði eklendi.
+
+### C24 - Yapýlan iþlemlerin takibi için kayýt kontrolcüsünü özelliði eklendi.
+* Evcil hayvan sahiplenme kaydý görüntüleme özelliði eklendi.
+* Evcil hayvan ile aktivite yapma kaydý görüntüleme özelliði eklendi.
+* Evcil hayvan besleme kaydý görüntüleme özelliði eklendi.
+* Evcil hayvan eðitme kaydý görüntüleme özelliði eklendi.
