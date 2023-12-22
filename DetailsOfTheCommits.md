@@ -112,3 +112,6 @@
 ### C23 - Yapýlacak iþlemler için operayson kontrolcüsünü özelliði eklendi.
 * Sisteme giriþ özelliði eklendi.
 * Evcil hayvan sahiplenme özelliði eklendi.
+* Evcil hayvan ile aktivite yapma özelliði eklendi.
+* Evcil hayvan besleme özelliði eklendi.
+* Evcil hayvan eðitme özelliði eklendi.

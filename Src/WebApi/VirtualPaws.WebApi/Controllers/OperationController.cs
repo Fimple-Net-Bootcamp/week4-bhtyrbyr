@@ -9,24 +9,45 @@ namespace VirtualPaws.WebApi.Controllers
     [ApiController]
     public class OperationController : ControllerBase
     {
-        private readonly IMediator _medaator;
+        private readonly IMediator _mediator;
         public OperationController(IMediator mediator)
         {
-            _medaator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost("Login/")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             var command = new LoginCommand(model);
-            return Ok(await _medaator.Send(command));
+            return Ok(await _mediator.Send(command));
         }
 
         [HttpPost("Ownership/")]
         public async Task<IActionResult> Ownership([FromBody] OwnershipDTO model)
         {
             var command = new OwnershipCommand(model);
-            return Ok(await _medaator.Send(command));
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost("DoActivity/")]
+        public async Task<IActionResult> DoActivity([FromBody] DoActivityDTO model)
+        {
+            var command = new DoActivityCommand(model);
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost("FeedPet/")]
+        public async Task<IActionResult> PetFeed([FromBody] FeedPetDTO model)
+        {
+            var command = new FeedPetCommand(model);
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost("Training/")]
+        public async Task<IActionResult> TrainigPet([FromBody] TrainingDTO model)
+        {
+            var command = new TrainingCommand(model);
+            return Ok(await _mediator.Send(command));
         }
     }
 }

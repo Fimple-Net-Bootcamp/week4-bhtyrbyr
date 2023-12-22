@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualPaws.Application.DTOs.OperationDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
