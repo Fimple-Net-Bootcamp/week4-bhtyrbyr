@@ -26,7 +26,6 @@ namespace VirtualPaws.WebApi.Controllers
             try
             {
                 var query = new GetAllListQuery();
-                var result = await _mediator.Send(query);
                 return Ok(await _mediator.Send(query));
             }
             catch (Exception ex)
@@ -101,7 +100,8 @@ namespace VirtualPaws.WebApi.Controllers
                 model.ApplyTo(updateDTOModel);
                 var command = new UpdateCommand(id, updateDTOModel);
                 return Ok(await _mediator.Send(command));
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

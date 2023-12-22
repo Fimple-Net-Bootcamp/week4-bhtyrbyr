@@ -47,7 +47,7 @@ namespace VirtualPaws.WebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
-        
+
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] TrainingCreateDTO model)
         {
@@ -62,7 +62,7 @@ namespace VirtualPaws.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(UInt16 id)
         {
@@ -76,7 +76,7 @@ namespace VirtualPaws.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePut(UInt16 id, [FromBody] TrainingUpdateDTO model)
         {

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using VirtualPaws.Application.DTOs.PetDTOs;
 using VirtualPaws.Application.DTOs.PetFoodDTOs;
 using VirtualPaws.Application.Features.Entities.PetFoods.Commands.Create;
 using VirtualPaws.Application.Features.Entities.PetFoods.Commands.Delete;
@@ -28,7 +27,8 @@ namespace VirtualPaws.WebApi.Controllers
             {
                 var query = new GetAllListQuery();
                 return Ok(await _mediator.Send(query));
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }

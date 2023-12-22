@@ -19,7 +19,7 @@ namespace VirtualPaws.WebApi.Controllers
         {
             _mediator = mediator;
         }
-        
+
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
