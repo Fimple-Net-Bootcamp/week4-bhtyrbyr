@@ -108,3 +108,7 @@
 * Eðitimler için kontrolcü oluþturuldu.
 * Eðitim için Repo sýnýfý oluþturuldu.
 * Namespace ve deðiþken isimleri düzenlendi.
+
+### C23 - Yapýlacak iþlemler için operayson kontrolcüsünü özelliði eklendi.
+* Sisteme giriþ özelliði eklendi.
+* Evcil hayvan sahiplenme özelliði eklendi.

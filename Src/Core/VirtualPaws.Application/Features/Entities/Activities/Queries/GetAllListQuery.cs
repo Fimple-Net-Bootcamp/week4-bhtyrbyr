@@ -25,7 +25,7 @@ namespace VirtualPaws.Application.Features.Entities.Activities.Queries
 
             public async Task<QueryResponse<List<ActivityViewDTO>>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
             {
-                var entities = _petRepo.GetAll();
+                var entities = _petRepo.GetAll().OrderBy(entity => entity.Id).ToList();
                 if (!entities.Any())
                     throw new NoRecordFoundException("ActivityRepository");
                 var result = _mapper.Map<List<ActivityViewDTO>>(entities);

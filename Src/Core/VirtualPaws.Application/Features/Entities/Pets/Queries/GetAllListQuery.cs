@@ -24,7 +24,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Queries
 
             public async Task<QueryResponse<List<PetSimplifiedViewDTO>>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
             {
-                var entities = _petRepo.GetAll();
+                var entities = _petRepo.GetAll().OrderBy(entity => entity.Id).ToList();
                 if (!entities.Any())
                     throw new NoRecordFoundException("PetRepository");
                 entities.ForEach(entity =>

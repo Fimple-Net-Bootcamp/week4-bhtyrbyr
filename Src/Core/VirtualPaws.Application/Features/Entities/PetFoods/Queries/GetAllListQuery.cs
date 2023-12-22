@@ -22,7 +22,7 @@ namespace VirtualPaws.Application.Features.Entities.PetFoods.Queries
 
             public async Task<QueryResponse<List<PetFoodViewDTO>>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
             {
-                var entities = _petFoodRepo.GetAll();
+                var entities = _petFoodRepo.GetAll().OrderBy(entity => entity.Id).ToList();
                 if (!entities.Any())
                     throw new NoRecordFoundException("PetFoodRepository");
                 var results = _mapper.Map<List<PetFoodViewDTO>>(entities);

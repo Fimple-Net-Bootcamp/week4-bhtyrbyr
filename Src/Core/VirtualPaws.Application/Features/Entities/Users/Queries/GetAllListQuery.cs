@@ -24,7 +24,7 @@ namespace VirtualPaws.Application.Features.Entities.Users.Queries
 
             public async Task<QueryResponse<List<UserSimplifiedViewDTO>>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
             {
-                var entities = _userRepo.GetAll();
+                var entities = _userRepo.GetAll().OrderBy(entity => entity.Id).ToList();
                 if (!entities.Any())
                     throw new NoRecordFoundException("UserRepository");
                 entities.ForEach(entity =>

@@ -22,7 +22,7 @@ namespace VirtualPaws.Application.Features.Entities.Trainings.Queries
 
             public async Task<QueryResponse<List<TrainingViewDTO>>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
             {
-                var entities = _petRepo.GetAll();
+                var entities = _petRepo.GetAll().OrderBy(entity => entity.Id).ToList();
                 if (!entities.Any())
                     throw new NoRecordFoundException("TrainingRepository");
                 var results = _mapper.Map<List<TrainingViewDTO>>(entities);
