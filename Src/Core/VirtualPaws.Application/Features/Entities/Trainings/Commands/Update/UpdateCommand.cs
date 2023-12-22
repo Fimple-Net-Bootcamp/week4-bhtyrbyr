@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using VirtualPaws.Application.DTOs.PetFoodDTOs;
 using VirtualPaws.Application.DTOs.TrainingDTOs;
 using VirtualPaws.Application.Exceptions;
+using VirtualPaws.Application.Features.Entities.Trainings.Commands.Create;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
 
@@ -16,6 +18,8 @@ namespace VirtualPaws.Application.Features.Entities.Trainings.Commands.Update
         public UpdateCommand(UInt16 Id, TrainingUpdateDTO model)
         {
             this.Id = Id;
+            var validator = new TrainingsUpdateDTOValidator();
+            validator.ValidateAndThrow(model);
             dtoModel = model;
         }
         public class UpdatePutCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>

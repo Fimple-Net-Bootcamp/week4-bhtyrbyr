@@ -121,3 +121,5 @@
 * Evcil hayvan ile aktivite yapma kaydý görüntüleme özelliði eklendi.
 * Evcil hayvan besleme kaydý görüntüleme özelliði eklendi.
 * Evcil hayvan eðitme kaydý görüntüleme özelliði eklendi.
+* 
+### C25 - Kontrolcülere gelen verilerin doðrulanmasý için FluentValidation özelliði eklendi.

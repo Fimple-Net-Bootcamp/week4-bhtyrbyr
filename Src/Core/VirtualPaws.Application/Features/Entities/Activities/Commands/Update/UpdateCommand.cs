@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using VirtualPaws.Application.DTOs.ActivityDTOs;
 using VirtualPaws.Application.Exceptions;
+using VirtualPaws.Application.Features.Entities.Activities.Commands.Update;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
 
@@ -14,6 +16,8 @@ namespace VirtualPaws.Application.Features.Entities.Activitys.Commands.Update
         public UpdateCommand(UInt16 Id, ActivityUpdateDTO model)
         {
             this.Id = Id;
+            var validator = new ActivitiesUpdateDTOValidator();
+            validator.ValidateAndThrow(model);
             dtoModel = model;
         }
         public class UpdateCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>

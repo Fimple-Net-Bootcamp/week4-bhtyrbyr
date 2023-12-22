@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using VirtualPaws.Application.DTOs.PetDTOs;
 using VirtualPaws.Application.Exceptions;
+using VirtualPaws.Application.Features.Entities.Pets.Commands.Create;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
 
@@ -14,6 +16,8 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Update
         public UpdateCommand(UInt16 Id, PetUpdateDTO model)
         {
             this.Id = Id;
+            var validator = new PetsUpdateDTOValidator();
+            validator.ValidateAndThrow(model);
             dtoModel = model;
         }
         public class UpdatePutCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>

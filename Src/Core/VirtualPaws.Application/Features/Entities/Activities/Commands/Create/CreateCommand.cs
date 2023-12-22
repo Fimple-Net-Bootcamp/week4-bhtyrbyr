@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using VirtualPaws.Application.DTOs.ActivityDTOs;
 using VirtualPaws.Application.Exceptions;
@@ -15,7 +16,10 @@ namespace VirtualPaws.Application.Features.Entities.Activities.Commands.Create
 
         public CreateCommand(ActivityCreateDTO model)
         {
+            var _validator = new ActivityCreateDTOValdaitor();
+            _validator.ValidateAndThrow(model);
             dtoModel = model;
+            
         }
         public class CreateCommandHandler : IRequestHandler<CreateCommand, ServiceResponse>
         {
