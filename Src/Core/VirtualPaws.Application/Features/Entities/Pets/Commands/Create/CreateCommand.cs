@@ -21,12 +21,14 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
         {
             private readonly IPetEntityRepository _petRepo;
             private readonly IActivityEntityRepository _activityRepo;
+            private readonly IActivityPetEntityRepository _activityPetRepo;
             private readonly IMapper _mapper;
 
-            public CreateCommandHandler(IPetEntityRepository petRepo, IActivityEntityRepository activityRepo, IMapper mapper)
+            public CreateCommandHandler(IPetEntityRepository petRepo, IActivityEntityRepository activityRepo, IActivityPetEntityRepository activityPetRepo, IMapper mapper)
             {
                 _petRepo = petRepo;
                 _activityRepo = activityRepo;
+                _activityPetRepo = activityPetRepo;
                 _mapper = mapper;
             }
 
@@ -35,10 +37,6 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
                 if (_petRepo.GetAll().Any(user => user.Name == request.dtoModel.Name))
                     throw new AlreadyExistException();
                 var newEntity = _mapper.Map<Pet>(request.dtoModel);
-                var activityList = _activityRepo.GetAll().Where(activity =>
-                    request.dtoModel.Activities.Contains(activity.Name)
-                ).ToList();
-                newEntity.Activities = activityList;
                 _petRepo.Create(newEntity);
                 request.newId = newEntity.Id;
                 return new ServiceResponse("Pet Service", $"The {newEntity.Name} was successfully registered.");

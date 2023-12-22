@@ -105,3 +105,6 @@
 * Namespace ve deðiþken isimleri düzenlendi.
 
 ### C22 - Aktiviteler kontrolcüsü eklendi.
+* Eðitimler için kontrolcü oluþturuldu.
+* Eðitim için Repo sýnýfý oluþturuldu.
+* Namespace ve deðiþken isimleri düzenlendi.

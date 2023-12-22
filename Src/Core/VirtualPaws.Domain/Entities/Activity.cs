@@ -1,4 +1,5 @@
-﻿using VirtualPaws.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using VirtualPaws.Domain.Common;
 
 namespace VirtualPaws.Domain.Entities
 {
@@ -15,7 +16,7 @@ namespace VirtualPaws.Domain.Entities
         /// <summary>
         /// Indicates the pet that can do the activity.
         /// </summary>
-        public List<Pet> Pets { get; set; }
+        public List<ActivityPet> ActivityPets { get; set; }
 
         /// <summary>
         /// Indicates how much this activity will contribute to your health score.

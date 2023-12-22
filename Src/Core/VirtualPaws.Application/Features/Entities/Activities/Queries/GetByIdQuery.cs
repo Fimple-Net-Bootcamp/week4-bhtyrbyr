@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using VirtualPaws.Application.DTOs.ActivityDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
@@ -7,7 +8,7 @@ using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Features.Entities.Activities.Queries
 {
-    public class GetByIdQuery : IRequest<QueryResponse<Activity>>
+    public class GetByIdQuery : IRequest<QueryResponse<ActivityViewDTO>>
     {
         public UInt16 Id { get; set; }
 
@@ -15,7 +16,7 @@ namespace VirtualPaws.Application.Features.Entities.Activities.Queries
         {
             this.Id = Id;
         }
-        public class GetByIdQueryHandler : IRequestHandler<GetByIdQuery, QueryResponse<Activity>>
+        public class GetByIdQueryHandler : IRequestHandler<GetByIdQuery, QueryResponse<ActivityViewDTO>>
         {
             private readonly IActivityEntityRepository _petRepo;
             private readonly IUserEntityRepository _userRepo;
@@ -28,13 +29,13 @@ namespace VirtualPaws.Application.Features.Entities.Activities.Queries
                 _mapper = mapper;
             }
 
-            public async Task<QueryResponse<Activity>> Handle(GetByIdQuery request, CancellationToken cancellationToken)
+            public async Task<QueryResponse<ActivityViewDTO>> Handle(GetByIdQuery request, CancellationToken cancellationToken)
             {
                 var entity = _petRepo.GetById(request.Id);
                 if (entity is not null)
                 {
-                   // var result = _mapper.Map<ActivityDetailedViewDTO>(entity);
-                    return new QueryResponse<Activity>("Activity Service", "The record was successfully retrieved from the database.", entity);
+                    var result = _mapper.Map<ActivityViewDTO>(entity);
+                    return new QueryResponse<ActivityViewDTO>("Activity Service", "The record was successfully retrieved from the database.", result);
                 }
                 throw new NoRecordFoundException("ActivityRepository");
             }

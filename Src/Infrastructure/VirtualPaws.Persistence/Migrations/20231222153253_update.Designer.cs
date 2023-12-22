@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualPaws.Persistence.Context;
@@ -11,9 +12,11 @@ using VirtualPaws.Persistence.Context;
 namespace VirtualPaws.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222153253_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace VirtualPaws.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("ActivityPet", b =>
+                {
+                    b.Property<int>("PetsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PetsIds")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PetsId", "PetsIds");
+
+                    b.HasIndex("PetsIds");
+
+                    b.ToTable("ActivityPet");
+                });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.Activity", b =>
                 {
@@ -40,27 +58,16 @@ namespace VirtualPaws.Persistence.Migrations
                     b.Property<byte>("NutritionalValue")
                         .HasColumnType("smallint");
 
+                    b.Property<int[]>("PetIds")
+                        .IsRequired()
+                        .HasColumnType("integer[]");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
                     b.ToTable("Activitys");
-                });
-
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.ActivityPet", b =>
-                {
-                    b.Property<int>("PetId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PetId", "ActivityId");
-
-                    b.HasIndex("ActivityId");
-
-                    b.ToTable("ActivityPet");
                 });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.Pet", b =>
@@ -356,23 +363,19 @@ namespace VirtualPaws.Persistence.Migrations
                     b.ToTable("TrainingRecords");
                 });
 
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.ActivityPet", b =>
+            modelBuilder.Entity("ActivityPet", b =>
                 {
-                    b.HasOne("VirtualPaws.Domain.Entities.Activity", "Activity")
-                        .WithMany("ActivityPets")
-                        .HasForeignKey("ActivityId")
+                    b.HasOne("VirtualPaws.Domain.Entities.Pet", null)
+                        .WithMany()
+                        .HasForeignKey("PetsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VirtualPaws.Domain.Entities.Pet", "Pet")
-                        .WithMany("ActivityPets")
-                        .HasForeignKey("PetId")
+                    b.HasOne("VirtualPaws.Domain.Entities.Activity", null)
+                        .WithMany()
+                        .HasForeignKey("PetsIds")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("Pet");
                 });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.Pet", b =>
@@ -493,16 +496,6 @@ namespace VirtualPaws.Persistence.Migrations
                     b.Navigation("Pet");
 
                     b.Navigation("Training");
-                });
-
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.Activity", b =>
-                {
-                    b.Navigation("ActivityPets");
-                });
-
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.Pet", b =>
-                {
-                    b.Navigation("ActivityPets");
                 });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.User", b =>

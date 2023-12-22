@@ -11,15 +11,15 @@ namespace VirtualPaws.Application.Features.Entities.Pets
             CreateMap<Pet, PetSimplifiedViewDTO>()
                 .ForMember(
                     dest => dest.OwnerName, opt => opt.MapFrom(src => src.Owner == null ? "Sahipsiz" : $"{src.Owner.Name} {src.Owner.Surname.Substring(0,2)}***")
-                ).ReverseMap();
+                );
             CreateMap<Pet, PetDetailedViewDTO>()
                 .ForMember(
                     dest => dest.OwnerName, opt => opt.MapFrom(src => src.Owner == null ? "Sahipsiz" : $"{src.Owner.Name} {src.Owner.Surname.Substring(0, 2)}***")
-                ).ReverseMap();
-            CreateMap<PetCreateDTO, Pet>()
-                .ForMember(
-                    dest => dest.Activities, opt => opt.Ignore()
                 )
+                .ForMember(
+                    dest => dest.Activities, opt => opt.MapFrom(src => src.ActivityPets.Select(activityName => activityName.Activity.Name).ToList())
+                );
+            CreateMap<PetCreateDTO, Pet>()
                 .ForMember(
                     dest => dest.Level, opt => opt.MapFrom(src => 1)
                 )

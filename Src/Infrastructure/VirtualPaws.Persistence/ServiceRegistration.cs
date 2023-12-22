@@ -25,6 +25,7 @@ namespace VirtualPaws.Persistence
             services.AddScoped<IPetHealtStatusEntityRepository, PetHealtStatusEntityRepository>();
             services.AddScoped<IUserEntityRepository, UserEntityRepository>();
             services.AddScoped<ITrainingEntityRepository, TrainingEntityRepository>();
+            services.AddScoped<IActivityPetEntityRepository, ActivityPetEntityRepository>();
 
             services.AddScoped<IActivityRecordRepository, ActivityRecordRepository>();
             services.AddScoped<IFeedRecordRepository, FeedRecordRepository>();

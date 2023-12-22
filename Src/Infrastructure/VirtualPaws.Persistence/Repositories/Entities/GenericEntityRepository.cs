@@ -4,7 +4,7 @@ using VirtualPaws.Persistence.Context;
 
 namespace VirtualPaws.Persistence.Repositories.Entities
 {
-    public class GenericEntityRepository<T> : IGenericEntityRepository<T> where T : BaseEntity
+    public class GenericEntityRepository<T> : IGenericEntityRepository<T> where T : class
     {
         private readonly AppDbContext _dbContext;
         public GenericEntityRepository(AppDbContext dbContext)
@@ -14,7 +14,7 @@ namespace VirtualPaws.Persistence.Repositories.Entities
 
         public List<T> GetAll()
         {
-            return _dbContext.Set<T>().OrderBy(pet => pet.Id).ToList();
+            return _dbContext.Set<T>().ToList();
         }
 
         public T GetById(UInt16 id)

@@ -8,7 +8,6 @@ namespace VirtualPaws.Domain.Entities
     /// </summary>
     public class Pet : BaseEntity
     {
-        #region xxx
         /// <summary>
         /// Indicates the pet's name.
         /// </summary>
@@ -48,10 +47,10 @@ namespace VirtualPaws.Domain.Entities
         ///  - The lower the starvation, the more health points are reduced.
         /// </summary>
         public byte HungerScore { get; set; }
-        #endregion
+
         /// <summary>
         /// Identifies activities that the pet can do.
         /// </summary>
-        public List<Activity> Activities { get; set; } 
+        public List<ActivityPet> ActivityPets { get; set; } 
     }
 }

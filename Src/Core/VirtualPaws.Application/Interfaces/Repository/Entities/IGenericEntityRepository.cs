@@ -2,7 +2,7 @@
 
 namespace VirtualPaws.Application.Interfaces.Repository.Entities
 {
-    public interface IGenericEntityRepository<T> where T : BaseEntity
+    public interface IGenericEntityRepository<T> where T : class
     {
         List<T> GetAll();
         T GetById(UInt16 id);
