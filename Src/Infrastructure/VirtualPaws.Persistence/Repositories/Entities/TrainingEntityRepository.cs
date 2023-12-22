@@ -4,9 +4,9 @@ using VirtualPaws.Persistence.Context;
 
 namespace VirtualPaws.Persistence.Repositories.Entities
 {
-    public class UserEntityRepository : GenericEntityRepository<User>, IUserEntityRepository
+    public class TrainingEntityRepository : GenericEntityRepository<Training>, ITrainingEntityRepository
     {
-        public UserEntityRepository(AppDbContext dbContext) : base(dbContext)
+        public TrainingEntityRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }

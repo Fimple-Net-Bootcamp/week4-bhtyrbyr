@@ -1,5 +1,4 @@
 ﻿using VirtualPaws.Domain.Common;
-using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Interfaces.Repository.Entities
 {

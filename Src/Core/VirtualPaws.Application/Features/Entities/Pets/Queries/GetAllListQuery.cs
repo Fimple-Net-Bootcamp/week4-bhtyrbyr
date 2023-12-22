@@ -4,7 +4,6 @@ using VirtualPaws.Application.DTOs.PetDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
-using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Features.Entities.Pets.Queries
 {
@@ -16,9 +15,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Queries
             private readonly IUserEntityRepository _userRepo;
             private readonly IMapper _mapper;
 
-            public GetAllListQueryHandler(IPetEntityRepository petRepo, 
-                                          IUserEntityRepository userRepo, 
-                                          IMapper mapper)
+            public GetAllListQueryHandler(IPetEntityRepository petRepo, IUserEntityRepository userRepo, IMapper mapper)
             {
                 _petRepo = petRepo;
                 _userRepo = userRepo;

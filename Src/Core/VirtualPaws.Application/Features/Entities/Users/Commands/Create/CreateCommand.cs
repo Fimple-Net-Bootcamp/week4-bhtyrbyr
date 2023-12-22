@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualPaws.Application.DTOs.UserDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
@@ -15,12 +10,13 @@ namespace VirtualPaws.Application.Features.Entities.Users.Commands.Create
 {
     public class CreateCommand : IRequest<ServiceResponse>
     {
-        public CreateCommand(UserCreateDTO dtoModel)
-        {
-            this.dtoModel = dtoModel;
-        }
         public UInt16 newId { get; set; }
         public UserCreateDTO dtoModel { get; set; }
+
+        public CreateCommand(UserCreateDTO model)
+        {
+            dtoModel = model;
+        }
         public class CreateCommandHandler : IRequestHandler<CreateCommand, ServiceResponse>
         {
             private readonly IUserEntityRepository _userRepo;
@@ -34,9 +30,9 @@ namespace VirtualPaws.Application.Features.Entities.Users.Commands.Create
 
             public async Task<ServiceResponse> Handle(CreateCommand request, CancellationToken cancellationToken)
             {
-                var newEntity = _mapper.Map<User>(request.dtoModel);
-                if (_userRepo.GetAll().Any(user => user.Username == newEntity.Username))
+                if (_userRepo.GetAll().Any(user => user.Username == request.dtoModel.Username))
                     throw new AlreadyExistException();
+                var newEntity = _mapper.Map<User>(request.dtoModel);
                 _userRepo.Create(newEntity);
                 request.newId = newEntity.Id;
                 return new ServiceResponse("User Service", $"The {newEntity.Username} was successfully registered.");

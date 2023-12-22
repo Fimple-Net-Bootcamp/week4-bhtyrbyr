@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VirtualPaws.Application.Exceptions
+﻿namespace VirtualPaws.Application.Exceptions
 {
     public class ViolatesForeignKeyException : Exception
     {

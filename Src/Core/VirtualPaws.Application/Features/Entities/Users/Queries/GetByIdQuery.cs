@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualPaws.Application.DTOs.UserDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
@@ -15,6 +10,7 @@ namespace VirtualPaws.Application.Features.Entities.Users.Queries
     public class GetByIdQuery : IRequest<QueryResponse<UserDetailedViewDTO>>
     {
         public UInt16 Id { get; set; }
+
         public GetByIdQuery(UInt16 Id)
         {
             this.Id = Id;
@@ -40,7 +36,6 @@ namespace VirtualPaws.Application.Features.Entities.Users.Queries
                     entity.Pets = _petRepo.GetAll().Where(pet => pet.OwnerId == entity.Id).ToList();
                     var result = _mapper.Map<UserDetailedViewDTO>(entity);
                     return new QueryResponse<UserDetailedViewDTO>("User Service", "The records were successfully retrieved from the database.", result);
-
                 }
                 throw new NoRecordFoundException("UserRepository");
             }

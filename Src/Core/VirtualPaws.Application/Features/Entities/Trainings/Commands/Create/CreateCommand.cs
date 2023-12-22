@@ -1,41 +1,41 @@
 ﻿using AutoMapper;
 using MediatR;
-using VirtualPaws.Application.DTOs.PetFoodDTOs;
+using VirtualPaws.Application.DTOs.TrainingDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
 using VirtualPaws.Domain.Entities;
 
-namespace VirtualPaws.Application.Features.Entities.PetFoods.Commands.Create
+namespace VirtualPaws.Application.Features.Entities.Trainings.Commands.Create
 {
     public class CreateCommand : IRequest<ServiceResponse>
     {
         public UInt16 newId { get; set; }
-        public PetFoodCreateDTO dtoModel { get; set; }
+        public TrainingCreateDTO dtoModel { get; set; }
 
-        public CreateCommand(PetFoodCreateDTO model)
+        public CreateCommand(TrainingCreateDTO model)
         {
             dtoModel = model;
         }
         public class CreateCommandHandler : IRequestHandler<CreateCommand, ServiceResponse>
         {
-            private readonly IPetFoodEntityRepository _petFoodRepo;
+            private readonly ITrainingEntityRepository _trainingRepo;
             private readonly IMapper _mapper;
 
-            public CreateCommandHandler(IPetFoodEntityRepository petFoodRepo, IMapper mapper)
+            public CreateCommandHandler(ITrainingEntityRepository trainingRepo, IMapper mapper)
             {
-                _petFoodRepo = petFoodRepo;
+                _trainingRepo = trainingRepo;
                 _mapper = mapper;
             }
 
             public async Task<ServiceResponse> Handle(CreateCommand request, CancellationToken cancellationToken)
             {
-                if (_petFoodRepo.GetAll().Any(petFood => petFood.Name == request.dtoModel.Name))
+                if (_trainingRepo.GetAll().Any(training => training.Name == request.dtoModel.Name))
                     throw new AlreadyExistException();
-                var newEntity = _mapper.Map<PetFood>(request.dtoModel);
-                _petFoodRepo.Create(newEntity);
+                var newEntity = _mapper.Map<Training>(request.dtoModel);
+                _trainingRepo.Create(newEntity);
                 request.newId = newEntity.Id;
-                return new ServiceResponse("PetFood Service", $"The {newEntity.Name} was successfully registered.");
+                return new ServiceResponse("Training Service", $"The {newEntity.Name} was successfully registered.");
             }
         }
     }

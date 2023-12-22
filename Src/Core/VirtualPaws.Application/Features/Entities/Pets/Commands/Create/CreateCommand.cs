@@ -10,14 +10,13 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
 {
     public class CreateCommand : IRequest<ServiceResponse>
     {
-        public CreateCommand(PetCreateDTO dtoModel)
-        {
-            this.dtoModel = dtoModel;
-        }
-
         public UInt16 newId { get; set; }
-
         public PetCreateDTO dtoModel { get; set; }
+
+        public CreateCommand(PetCreateDTO model)
+        {
+            dtoModel = model;
+        }
         public class CreateCommandHandler : IRequestHandler<CreateCommand, ServiceResponse>
         {
             private readonly IPetEntityRepository _petRepo;
@@ -33,13 +32,13 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Create
 
             public async Task<ServiceResponse> Handle(CreateCommand request, CancellationToken cancellationToken)
             {
+                if (_petRepo.GetAll().Any(user => user.Name == request.dtoModel.Name))
+                    throw new AlreadyExistException();
                 var newEntity = _mapper.Map<Pet>(request.dtoModel);
                 var activityList = _activityRepo.GetAll().Where(activity =>
                     request.dtoModel.Activities.Contains(activity.Name)
                 ).ToList();
                 newEntity.Activities = activityList;
-                if (_petRepo.GetAll().Any(user => user.Name == newEntity.Name))
-                    throw new AlreadyExistException();
                 _petRepo.Create(newEntity);
                 request.newId = newEntity.Id;
                 return new ServiceResponse("Pet Service", $"The {newEntity.Name} was successfully registered.");

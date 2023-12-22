@@ -94,7 +94,12 @@
 * Ýsim düzenlemeleri yapýldý. 
 * Dönüþ tipleri ve hata metinlerinde düzenleme yapýldý.
 
-### C20 - Evcil hayvan yemekleri içi kontrolcü oluþturuldu.
+### C20 - Evcil hayvan yemekleri için kontrolcü oluþturuldu.
 * Evcil hayvan kaydý tamamýný görüntüleme/Id'ye göre görüntüleme/ekleme/silme/güncelleme özelliði eklendi.
 * Application katmanýnda entity feature'larýnda deðiþken isimlendirmeleri düzenlendi. 
 * Gereksiz namespace tanýmlamalarý kaldýrýldý.
+
+### C21 - Eðitim komtrolcüsü eklendi.
+* Eðitimler için kontrolcü oluþturuldu.
+* Eðitim için Repo sýnýfý oluþturuldu.
+* Namespace ve deðiþken isimleri düzenlendi.

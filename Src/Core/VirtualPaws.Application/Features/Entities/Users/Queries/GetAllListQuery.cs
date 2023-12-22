@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualPaws.Application.DTOs.UserDTOs;
+using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
-using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Features.Entities.Users.Queries
 {
@@ -30,6 +25,8 @@ namespace VirtualPaws.Application.Features.Entities.Users.Queries
             public async Task<QueryResponse<List<UserSimplifiedViewDTO>>> Handle(GetAllListQuery request, CancellationToken cancellationToken)
             {
                 var entities = _userRepo.GetAll();
+                if (!entities.Any())
+                    throw new NoRecordFoundException("UserRepository");
                 entities.ForEach(entity =>
                 {
                     entity.Pets = _petRepo.GetAll().Where(pet => pet.OwnerId == entity.Id).ToList();

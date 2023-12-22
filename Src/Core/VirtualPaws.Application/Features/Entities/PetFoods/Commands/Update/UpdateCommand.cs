@@ -11,10 +11,10 @@ namespace VirtualPaws.Application.Features.Entities.PetFoods.Commands.Update
         public PetFoodUpdateDTO dtoModel { get; set; }
         public UInt16 Id { get; set; }
 
-        public UpdateCommand(UInt16 Id, PetFoodUpdateDTO dtoModel)
+        public UpdateCommand(UInt16 Id, PetFoodUpdateDTO model)
         {
             this.Id = Id;
-            this.dtoModel = dtoModel;
+            dtoModel = model;
         }
         public class UpdateCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>
         {

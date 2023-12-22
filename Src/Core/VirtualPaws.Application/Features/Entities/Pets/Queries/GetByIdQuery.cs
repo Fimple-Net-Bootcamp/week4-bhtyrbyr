@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualPaws.Application.DTOs.PetDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
@@ -15,9 +10,10 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Queries
     public class GetByIdQuery : IRequest<QueryResponse<PetDetailedViewDTO>>
     {
         public UInt16 Id { get; set; }
-        public GetByIdQuery(UInt16 ıd)
+
+        public GetByIdQuery(UInt16 Id)
         {
-            Id = ıd;
+            this.Id = Id;
         }
         public class GetByIdQueryHandler : IRequestHandler<GetByIdQuery, QueryResponse<PetDetailedViewDTO>>
         {
@@ -25,9 +21,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Queries
             private readonly IUserEntityRepository _userRepo;
             private readonly IMapper _mapper;
 
-            public GetByIdQueryHandler(IPetEntityRepository petRepo,
-                                          IUserEntityRepository userRepo,
-                                          IMapper mapper)
+            public GetByIdQueryHandler(IPetEntityRepository petRepo, IUserEntityRepository userRepo, IMapper mapper)
             {
                 _petRepo = petRepo;
                 _userRepo = userRepo;

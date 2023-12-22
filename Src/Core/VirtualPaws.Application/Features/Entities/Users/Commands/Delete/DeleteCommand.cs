@@ -1,10 +1,5 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
@@ -14,9 +9,10 @@ namespace VirtualPaws.Application.Features.Entities.Users.Commands.Delete
     public class DeleteCommand : IRequest<ServiceResponse>
     {
         public UInt16 Id { get; set; }
+
         public DeleteCommand(UInt16 Id)
         {
-             this.Id = Id;
+            this.Id = Id;
         }
         public class DeleteCommandHandler : IRequestHandler<DeleteCommand, ServiceResponse>
         {
@@ -33,7 +29,8 @@ namespace VirtualPaws.Application.Features.Entities.Users.Commands.Delete
                 try
                 {
                     _userRepo.Delete(entity);
-                }catch(DbUpdateException ex)
+                }
+                catch(DbUpdateException ex)
                 {
                     string[] exMessageParams = ex.InnerException.ToString().Split("\"");
                     string[] ForeignKeyText = exMessageParams[3].Split('_');

@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
-using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Delete
 {
     public class DeleteCommand : IRequest<ServiceResponse>
     {
-        public UInt16 id { get; set; }
-        public DeleteCommand(UInt16 id)
+        public UInt16 Id { get; set; }
+
+        public DeleteCommand(UInt16 Id)
         {
-            this.id = id;
+            this.Id = Id;
         }
         public class DeleteCommandHandler : IRequestHandler<DeleteCommand, ServiceResponse>
         {
@@ -25,7 +25,7 @@ namespace VirtualPaws.Application.Features.Entities.Pets.Commands.Delete
 
             public async Task<ServiceResponse> Handle(DeleteCommand request, CancellationToken cancellationToken)
             {
-                var entity = _petRepo.GetById(request.id);
+                var entity = _petRepo.GetById(request.Id);
                 if (entity is null)
                     throw new NoRecordFoundException("PetRepository");
                 try

@@ -12,8 +12,8 @@ using VirtualPaws.Persistence.Context;
 namespace VirtualPaws.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231220212157_update-pet-activity-link")]
-    partial class updatepetactivitylink
+    [Migration("20231222120653_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace VirtualPaws.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("ActivityPet", b =>
+                {
+                    b.Property<int>("ActivitiesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PetsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ActivitiesId", "PetsId");
+
+                    b.HasIndex("PetsId");
+
+                    b.ToTable("ActivityPet");
+                });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.Activity", b =>
                 {
@@ -51,29 +66,6 @@ namespace VirtualPaws.Persistence.Migrations
                     b.ToTable("Activitys");
                 });
 
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.ActivityPermision", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActivityId");
-
-                    b.HasIndex("PetId");
-
-                    b.ToTable("ActivityPermisions");
-                });
-
             modelBuilder.Entity("VirtualPaws.Domain.Entities.Pet", b =>
                 {
                     b.Property<int>("Id")
@@ -82,14 +74,8 @@ namespace VirtualPaws.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ActivityId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("HealtStatusId")
-                        .HasColumnType("integer");
 
                     b.Property<byte>("HungerScore")
                         .HasColumnType("smallint");
@@ -115,10 +101,6 @@ namespace VirtualPaws.Persistence.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActivityId");
-
-                    b.HasIndex("HealtStatusId");
 
                     b.HasIndex("OwnerId");
 
@@ -377,42 +359,26 @@ namespace VirtualPaws.Persistence.Migrations
                     b.ToTable("TrainingRecords");
                 });
 
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.ActivityPermision", b =>
+            modelBuilder.Entity("ActivityPet", b =>
                 {
-                    b.HasOne("VirtualPaws.Domain.Entities.Activity", "Activity")
+                    b.HasOne("VirtualPaws.Domain.Entities.Activity", null)
                         .WithMany()
-                        .HasForeignKey("ActivityId")
+                        .HasForeignKey("ActivitiesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VirtualPaws.Domain.Entities.Pet", "Pet")
-                        .WithMany("ActivityPermisions")
-                        .HasForeignKey("PetId")
+                    b.HasOne("VirtualPaws.Domain.Entities.Pet", null)
+                        .WithMany()
+                        .HasForeignKey("PetsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("Pet");
                 });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.Pet", b =>
                 {
-                    b.HasOne("VirtualPaws.Domain.Entities.Activity", null)
-                        .WithMany("Pets")
-                        .HasForeignKey("ActivityId");
-
-                    b.HasOne("VirtualPaws.Domain.Entities.PetHealtStatus", "HealtStatus")
-                        .WithMany()
-                        .HasForeignKey("HealtStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VirtualPaws.Domain.Entities.User", "Owner")
                         .WithMany("Pets")
                         .HasForeignKey("OwnerId");
-
-                    b.Navigation("HealtStatus");
 
                     b.Navigation("Owner");
                 });
@@ -526,16 +492,6 @@ namespace VirtualPaws.Persistence.Migrations
                     b.Navigation("Pet");
 
                     b.Navigation("Training");
-                });
-
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.Activity", b =>
-                {
-                    b.Navigation("Pets");
-                });
-
-            modelBuilder.Entity("VirtualPaws.Domain.Entities.Pet", b =>
-                {
-                    b.Navigation("ActivityPermisions");
                 });
 
             modelBuilder.Entity("VirtualPaws.Domain.Entities.User", b =>

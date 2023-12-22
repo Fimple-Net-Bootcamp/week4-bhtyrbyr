@@ -1,15 +1,8 @@
-﻿using AutoMapper;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 using VirtualPaws.Application.DTOs.UserDTOs;
 using VirtualPaws.Application.Exceptions;
 using VirtualPaws.Application.Interfaces.Repository.Entities;
 using VirtualPaws.Application.Wrappers;
-using VirtualPaws.Domain.Entities;
 
 namespace VirtualPaws.Application.Features.Entities.Users.Commands.Update
 {
@@ -17,19 +10,18 @@ namespace VirtualPaws.Application.Features.Entities.Users.Commands.Update
     {
         public UInt16 Id { get; set; }
         public UserUpdateDTO dtoModel { get; set; }
-        public UpdateCommand(ushort ıd, UserUpdateDTO dtoModel)
+
+        public UpdateCommand(UInt16 Id, UserUpdateDTO model)
         {
-            Id = ıd;
-            this.dtoModel = dtoModel;
+            this.Id = Id;
+            dtoModel = model;
         }
         public class UpdateCommandHandler : IRequestHandler<UpdateCommand, ServiceResponse>
         {
             private readonly IUserEntityRepository _userRepo;
-            private readonly IMapper _mapper;
-            public UpdateCommandHandler(IUserEntityRepository userRepo, IMapper mapper)
+            public UpdateCommandHandler(IUserEntityRepository userRepo)
             {
                 _userRepo = userRepo;
-                _mapper = mapper;
             }
             public async Task<ServiceResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
             {
